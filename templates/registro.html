@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registro - StudySpace
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <h2 class="text-center mb-4">
+                Crear cuenta
+            </h2>
+
+            <form method="POST">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Nombre
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="nombre"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Apellido
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="apellido"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Nombre de usuario
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="username"
+                        required
+                    >
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        name="correo"
+                        required
+                    >
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        required
+                    >
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Universidad
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="id_universidad"
+                        required
+                    >
+
+                        <option value="">
+                            Selecciona tu universidad
+                        </option>
+
+                        {% for universidad in universidades %}
+
+                        <option value="{{ universidad.id_universidad }}">
+                            {{ universidad.nombre }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Carrera
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="id_carrera"
+                        required
+                    >
+
+                        <option value="">
+                            Selecciona tu carrera
+                        </option>
+
+                        {% for carrera in carreras %}
+
+                        <option value="{{ carrera.id_carrera }}">
+                            {{ carrera.nombre }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Ciclo
+                    </label>
+
+                    <select
+                        class="form-select"
+                        name="id_ciclo"
+                        required
+                    >
+
+                        <option value="">
+                            Selecciona tu ciclo
+                        </option>
+
+                        {% for ciclo in ciclos %}
+
+                        <option value="{{ ciclo.id_ciclo }}">
+                            Ciclo {{ ciclo.numero }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                >
+                    Crear cuenta
+                </button>
+
+            </form>
+
+
+            <p class="text-center mt-3">
+                ¿Ya tienes una cuenta?
+                <a href="/login">
+                    Inicia sesión
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Inicio - StudySpace
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    {% if session.get("usuario_id") %}
+
+        <div class="text-center">
+
+            <h1 class="display-5 fw-bold">
+                Bienvenido a StudySpace
+            </h1>
+
+            <p class="lead mt-3">
+                Hola, <strong>{{ session.get("username") }}</strong>
+            </p>
+
+            <p>
+                Has iniciado sesión correctamente.
+            </p>
+
+            <a href="/logout" class="btn btn-danger">
+                Cerrar sesión
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="text-center">
+
+            <h1 class="display-5 fw-bold">
+                Bienvenido a StudySpace
+            </h1>
+
+            <p class="lead mt-3">
+                Organiza tus materiales de estudio
+                de manera sencilla y rápida.
+            </p>
+
+            <div class="mt-4">
+
+                <a href="/registro" class="btn btn-primary btn-lg">
+                    Crear cuenta
+                </a>
+
+                <a href="/login" class="btn btn-outline-secondary btn-lg ms-2">
+                    Iniciar sesión
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
