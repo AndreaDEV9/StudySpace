@@ -21,13 +21,15 @@ class Usuario(db.Model):
     id_carrera = db.Column(
         db.Integer,
         db.ForeignKey("carreras.id_carrera"),
-        nullable=False
+        nullable=True
     )
+
     id_ciclo = db.Column(
         db.Integer,
         db.ForeignKey("ciclos.id_ciclo"),
-        nullable=False
+        nullable=True
     )
+    
     tipo_plan = db.Column(
         db.String(20),
         nullable=False,

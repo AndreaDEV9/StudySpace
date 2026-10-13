@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block title %}Configuración académica | StudySpace{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Configuremos tu espacio de estudio</h2>
+                <p class="text-muted">
+                    Cuéntanos dónde estudias y qué carrera estás cursando.
+                </p>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mb-4">
+                <span class="badge rounded-pill text-bg-primary">1. Carrera</span>
+                <span class="badge rounded-pill text-bg-light">2. Ciclo</span>
+                <span class="badge rounded-pill text-bg-light">3. Cursos</span>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <h4 class="fw-semibold mb-2">Institución y carrera</h4>
+                    <p class="text-muted mb-4">
+                        Selecciona tu institución y luego tu carrera profesional.
+                    </p>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('auth.configuracion_carrera') }}"
+                        id="formConfiguracionCarrera"
+                    >
+                        <div class="mb-4">
+                            <label for="id_universidad" class="form-label fw-semibold">
+                                Institución educativa
+                            </label>
+
+                            <select
+                                class="form-select form-select-lg"
+                                id="id_universidad"
+                                name="id_universidad"
+                                required
+                            >
+                                <option value="">Selecciona tu institución</option>
+
+                                {% for universidad in universidades %}
+                                    <option
+                                        value="{{ universidad.id_universidad }}"
+                                        {% if seleccion_actual and seleccion_actual.id_universidad == universidad.id_universidad %}selected{% endif %}
+                                    >
+                                        {{ universidad.nombre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                            <div class="form-text">
+                                Elige la universidad o instituto donde estudias.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_carrera" class="form-label fw-semibold">
+                                Carrera profesional
+                            </label>
+
+                            <select
+                                class="form-select form-select-lg"
+                                id="id_carrera"
+                                name="id_carrera"
+                                data-carrera-seleccionada="{{ seleccion_actual.id_carrera if seleccion_actual else '' }}"
+                                required
+                                disabled
+                            >
+                                <option value="">Primero selecciona una institución</option>
+                            </select>
+
+                            <div id="mensajeCarreras" class="form-text" aria-live="polite">
+                                Las carreras disponibles aparecerán aquí.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg px-4"
+                                id="btnContinuarCarrera"
+                            >
+                                Continuar
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <p class="text-center text-muted small mt-4">
+                Esta información nos ayuda a organizar tus materiales académicos.
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script
+        src="{{ url_for('static', filename='js/configuracion_carrera.js') }}"
+        defer
+    ></script>
+{% endblock %}
+

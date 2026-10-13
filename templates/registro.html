@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block title %}
@@ -7,9 +8,7 @@ Registro - StudySpace
 {% block content %}
 
 <div class="container py-5">
-
     <div class="row justify-content-center">
-
         <div class="col-md-7">
 
             <h2 class="text-center mb-4">
@@ -19,156 +18,103 @@ Registro - StudySpace
             <form method="POST">
 
                 <div class="row">
-
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">
+                        <label for="nombre" class="form-label">
                             Nombre
                         </label>
-
                         <input
                             type="text"
+                            id="nombre"
                             class="form-control"
                             name="nombre"
+                            autocomplete="given-name"
                             required
                         >
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">
+                        <label for="apellido" class="form-label">
                             Apellido
                         </label>
-
                         <input
                             type="text"
+                            id="apellido"
                             class="form-control"
                             name="apellido"
+                            autocomplete="family-name"
                             required
                         >
                     </div>
-
                 </div>
 
-
                 <div class="mb-3">
-                    <label class="form-label">
+                    <label for="username" class="form-label">
                         Nombre de usuario
                     </label>
-
                     <input
                         type="text"
+                        id="username"
                         class="form-control"
                         name="username"
+                        autocomplete="username"
                         required
                     >
                 </div>
 
-
                 <div class="mb-3">
-                    <label class="form-label">
+                    <label for="correo" class="form-label">
                         Correo electrónico
                     </label>
-
                     <input
                         type="email"
+                        id="correo"
                         class="form-control"
                         name="correo"
+                        autocomplete="email"
                         required
                     >
                 </div>
 
-
+                
                 <div class="mb-3">
-                    <label class="form-label">
+                    <label for="password" class="form-label">
                         Contraseña
                     </label>
 
-                    <input
-                        type="password"
-                        class="form-control"
-                        name="password"
-                        required
-                    >
-                </div>
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            name="password"
+                            autocomplete="new-password"
+                            required
+                        >
 
-
-                <div class="mb-3">
-                    <label class="form-label">
-                        Universidad
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="id_universidad"
-                        required
-                    >
-
-                        <option value="">
-                            Selecciona tu universidad
-                        </option>
-
-                        {% for universidad in universidades %}
-
-                        <option value="{{ universidad.id_universidad }}">
-                            {{ universidad.nombre }}
-                        </option>
-
-                        {% endfor %}
-
-                    </select>
-                </div>
-
-
-                <div class="mb-3">
-                    <label class="form-label">
-                        Carrera
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="id_carrera"
-                        required
-                    >
-
-                        <option value="">
-                            Selecciona tu carrera
-                        </option>
-
-                        {% for carrera in carreras %}
-
-                        <option value="{{ carrera.id_carrera }}">
-                            {{ carrera.nombre }}
-                        </option>
-
-                        {% endfor %}
-
-                    </select>
-                </div>
-
-
-                <div class="mb-3">
-                    <label class="form-label">
-                        Ciclo
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="id_ciclo"
-                        required
-                    >
-
-                        <option value="">
-                            Selecciona tu ciclo
-                        </option>
-
-                        {% for ciclo in ciclos %}
-
-                        <option value="{{ ciclo.id_ciclo }}">
-                            Ciclo {{ ciclo.numero }}
-                        </option>
-
-                        {% endfor %}
-
-                    </select>
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            data-toggle-password="password"
+                            aria-label="Mostrar contraseña"
+                            aria-pressed="false"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
 
@@ -181,18 +127,15 @@ Registro - StudySpace
 
             </form>
 
-
             <p class="text-center mt-3">
                 ¿Ya tienes una cuenta?
-                <a href="/login">
+                <a href="{{ url_for('auth.login') }}">
                     Inicia sesión
                 </a>
             </p>
 
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

@@ -44,22 +44,49 @@ Iniciar sesión - StudySpace
 
                         </div>
 
-
+                        
                         <div class="mb-4">
-
-                            <label class="form-label">
+                            <label for="password" class="form-label">
                                 Contraseña
                             </label>
 
-                            <input
-                                type="password"
-                                class="form-control"
-                                name="password"
-                                placeholder="Ingresa tu contraseña"
-                                required
-                            >
+                            <div class="input-group">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="Ingresa tu contraseña"
+                                    autocomplete="current-password"
+                                    required
+                                >
 
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary"
+                                    data-toggle-password="password"
+                                    aria-label="Mostrar contraseña"
+                                    aria-pressed="false"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
+
 
 
                         <button

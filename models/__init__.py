@@ -8,3 +8,4 @@ from .tema import Tema
 from .nota import Nota
 from .sugerencia import Sugerencia
 from .recurso import Recurso
+from .curso_usuario import CursoUsuario

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Configuración académica - StudySpace{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Encabezado -->
+                    <div class="text-center mb-4">
+                        <span class="badge rounded-pill text-bg-light px-3 py-2 mb-3">
+                            StudySpace
+                        </span>
+
+                        <h2 class="fw-bold mb-2">
+                            Configura tu espacio de estudio
+                        </h2>
+
+                        <p class="text-muted">
+                            Selecciona tu institución, carrera y ciclo
+                            para personalizar tu experiencia de estudio.
+                        </p>
+                    </div>
+
+                    <!-- Mensajes de Flask -->
+                    {% with mensajes = get_flashed_messages(with_categories=true) %}
+                        {% if mensajes %}
+                            {% for categoria, mensaje in mensajes %}
+                                <div class="alert alert-{{ categoria }} alert-dismissible fade show"
+                                    role="alert">
+                                    {{ mensaje }}
+
+                                    <button type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="alert"
+                                            aria-label="Cerrar">
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <!-- Formulario académico -->
+                    <form
+                        method="POST"
+                        action="{{ url_for('auth.configuracion_academica') }}"
+                        id="formConfiguracionAcademica"
+                    >
+
+                        <!-- Universidad o instituto -->
+                        <div class="mb-4">
+                            <label for="id_universidad"
+                                class="form-label fw-semibold">
+                                Universidad o instituto
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="id_universidad"
+                                name="id_universidad"
+                                required
+                            >
+                                <option value="">
+                                    Selecciona tu institución
+                                </option>
+
+                                {% for universidad in universidades %}
+                                    <option
+                                        value="{{ universidad.id_universidad }}"
+                                        {% if usuario.id_universidad == universidad.id_universidad %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        {{ universidad.nombre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                            <div class="form-text">
+                                Elige la institución donde estudias.
+                            </div>
+                        </div>
+
+                        <!-- Carrera -->
+                        <div class="mb-4">
+                            <label for="id_carrera"
+                                class="form-label fw-semibold">
+                                Carrera profesional
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="id_carrera"
+                                name="id_carrera"
+                                data-carrera-inicial="{{ usuario.id_carrera or '' }}"
+                                required
+                                disabled
+                            >
+                                <option value="">
+                                    Primero selecciona tu institución
+                                </option>
+                            </select>
+
+                            <div class="form-text" id="mensajeCarreras">
+                                Las carreras disponibles dependerán
+                                de la institución seleccionada.
+                            </div>
+                        </div>
+
+                        <!-- Ciclo académico -->
+                        <div class="mb-4">
+                            <label for="id_ciclo"
+                                class="form-label fw-semibold">
+                                Ciclo académico
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="id_ciclo"
+                                name="id_ciclo"
+                                required
+                            >
+                                <option value="">
+                                    Selecciona tu ciclo
+                                </option>
+
+                                {% for ciclo in ciclos %}
+                                    <option
+                                        value="{{ ciclo.id_ciclo }}"
+                                        {% if usuario.id_ciclo == ciclo.id_ciclo %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Ciclo {{ ciclo.id_ciclo }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                            <div class="form-text">
+                                Selecciona el ciclo que cursas actualmente
+                            </div>
+                        </div>
+
+                        <!-- Botón -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 py-2"
+                            id="btnGuardarConfiguracion"
+                        >
+                            Guardar y continuar
+                        </button>
+
+                    </form>
+
+                    <p class="text-center text-muted small mt-4 mb-0">
+                        Esta información permitirá organizar tus cursos
+                        y materiales académicos dentro de StudySpace.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

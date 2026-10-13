@@ -22,3 +22,5 @@ Thumbs.db
 
 # Archivos subidos por usuarios
 uploads/
+
+config.py

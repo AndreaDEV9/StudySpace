@@ -1,0 +1,165 @@
+
+{% extends "base.html" %}
+
+{% block title %}Selecciona tus cursos | StudySpace{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Organiza tus cursos</h2>
+                <p class="text-muted">
+                    Selecciona los cursos que llevas para personalizar tu espacio de estudio.
+                </p>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mb-4">
+                <span class="badge rounded-pill text-bg-success">1. Carrera</span>
+                <span class="badge rounded-pill text-bg-success">2. Ciclo</span>
+                <span class="badge rounded-pill text-bg-primary">3. Cursos</span>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-4">
+                        <div>
+                            <h4 class="fw-semibold mb-1">Mis cursos</h4>
+                            <p class="text-muted mb-0">
+                                Marca los cursos que deseas tener en tu espacio.
+                            </p>
+                        </div>
+
+                        <span class="badge rounded-pill text-bg-light fs-6">
+                            Seleccionados:
+                            <span id="contadorCursos">0</span>
+                        </span>
+                    </div>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('auth.configuracion_cursos') }}"
+                        id="formSeleccionCursos"
+                    >
+                        <input type="hidden" name="accion" value="guardar_cursos">
+
+                        <div class="row g-3" id="listaCursos">
+                            {% for curso in cursos_disponibles %}
+                                <div class="col-md-6">
+                                    <label
+                                        class="card h-100 curso-card rounded-3"
+                                        for="curso_{{ curso.id_curso }}"
+                                    >
+                                        <div class="card-body d-flex align-items-start gap-3">
+                                            <input
+                                                class="form-check-input curso-checkbox mt-1"
+                                                type="checkbox"
+                                                name="cursos_seleccionados"
+                                                id="curso_{{ curso.id_curso }}"
+                                                value="{{ curso.id_curso }}"
+                                                {% if curso.id_curso in selecciones_actuales %}checked{% endif %}
+                                            >
+
+                                            <div>
+                                                <div class="fw-semibold">
+                                                    {{ curso.nombre }}
+                                                </div>
+
+                                                {% if curso.descripcion %}
+                                                    <p class="text-muted small mb-0 mt-1">
+                                                        {{ curso.descripcion }}
+                                                    </p>
+                                                {% endif %}
+
+                                                {% if curso.es_personalizado %}
+                                                    <span class="badge text-bg-light mt-2">
+                                                        Curso personalizado
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            {% else %}
+                                <div class="col-12">
+                                    <div class="alert alert-light border rounded-3">
+                                        <h5 class="fw-semibold">Todavía no hay cursos disponibles</h5>
+                                        <p class="mb-0 text-muted">
+                                            Puedes crear un curso personalizado en la sección inferior.
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 mt-4">
+                            <a
+                                href="{{ url_for('auth.configuracion_ciclo') }}"
+                                class="btn btn-outline-secondary btn-lg"
+                            >
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Regresar
+                            </a>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg px-4"
+                                id="btnGuardarCursos"
+                            >
+                                Guardar y finalizar
+                                <i class="bi bi-check2 ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h4 class="fw-semibold mb-2">¿No encuentras tu curso?</h4>
+                    <p class="text-muted">
+                        Puedes agregar un curso personalizado para tu ciclo académico.
+                    </p>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('auth.configuracion_cursos') }}"
+                        id="formCrearCurso"
+                    >
+                        <input type="hidden" name="accion" value="crear_curso">
+
+                        <div class="mb-3">
+                            <label for="nombre_curso" class="form-label fw-semibold">
+                                Nombre del curso
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="nombre_curso"
+                                name="nombre_curso"
+                                maxlength="150"
+                                placeholder="Ej. Desarrollo de Aplicaciones Web"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Crear curso
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/configuracion_cursos.js') }}" defer></script>
+{% endblock %}

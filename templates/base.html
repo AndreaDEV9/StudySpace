@@ -79,9 +79,17 @@
     </main>
 
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript general de StudySpace -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <!-- JavaScript específico de cada página -->
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>
 
 </body>
 

@@ -20,3 +20,8 @@ class Universidad(db.Model):
         backref="universidad",
         lazy=True
     )
+    tipo_institucion = db.Column(
+    db.Enum("UNIVERSIDAD", "INSTITUTO"),
+    nullable=False,
+    default="UNIVERSIDAD"
+    )
